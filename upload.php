@@ -2,9 +2,25 @@
 
 if($_SERVER["REQUEST_METHOD"]  == "POST"){
     
-    require_once("db.php");
     //http://192.168.0.14/camera/upload/imagen.jpg
-    $imageData = $_POST["path"];
+    $cantidad = intval($_POST["length"]);
+    $res = "";
+    $res = $cantidad . "<br>";
+
+    
+    for($i = 0; $i < $cantidad; $i++){
+        saveImage($_POST["path".$i]);
+        $res .= "Path: <br>" . $_POST["path$i"] . "<br>";
+    }
+    
+    echo $res;
+
+}
+
+function saveImage($path){
+    require("db.php");
+
+    $imageData = $path;//$_POST["path"];
     $query = "SELECT id FROM photos ORDER BY id ASC";
 
     $result = $mysql->query($query);
@@ -30,10 +46,7 @@ if($_SERVER["REQUEST_METHOD"]  == "POST"){
 
     $mysql->close();
 
-
-
 }
-
 
 
 ?>
