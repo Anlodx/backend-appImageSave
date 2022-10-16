@@ -26,11 +26,14 @@ function saveImage($path){
     $result = $mysql->query($query);
     $defaultId = 0;
 
+    $numeroFila = $result->num_rows + 1;
+/*
     while($row = $result->fetch_array()){
         $defaultId = intval($row["id"]) + 1;
     }
+    */
 
-    $imagePath = "upload/" . $defaultId . ".jpg";
+    $imagePath = "upload/" . $numeroFila . ".jpg";
 
     $SERVER_URL = "http://192.168.0.14/camera/" . $imagePath;
     $queryInsert = "INSERT INTO photos (path) values ('$SERVER_URL')";
